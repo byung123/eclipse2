@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <%
 	User user = (User) session.getAttribute("authentication"); // User로 다운캐스팅해야함
-	// 서블릿 3대 저장소
+	// 서블릿 3대 저장소 - setAttribyte, getAtrribute 가지고 있음.
 	// 1. Application 저장소
 	// 2. Request 저장소
 	// 3. Session 저장소 -> 보통 (인증, 인가)할 때 사용 <==> 토큰 인증 방식 JWT(Jason Web Token)
@@ -11,7 +11,6 @@
 	// 클라이언트 저장소
 	// 1. cookie
 	// 2. localStorage
-	
 %>    
     
 <header>

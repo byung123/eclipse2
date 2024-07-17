@@ -65,5 +65,51 @@ public class UserDao {
 		
 		return findUser;
 	}
+	
+	public static int updateUserInfo(User user) {
+		// 계속 작성하기 귀찮아서 Window-Preferences 검색창에 template 검색후
+		// Java-Editor-Template 들어가서 add 우른 후 밑의 코드 양식을 복사
+		// 다시 사용할 때 내가 지은 이름으로 자동완성을 띄우면 양식이 그대로 나옴
+		int successCount = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = pool.getConnection();
+			String sql = "update user_tb set name = ?, email = ? where user_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user.getName());
+			pstmt.setString(2, user.getEmail());
+			pstmt.setInt(3, user.getUserId());
+			successCount = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+
+		return successCount;
+	}
+	
+	public static int updatePassword(User user) {
+		int successCount = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = pool.getConnection();
+			String sql = "update user_tb set password = ? where user_id = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user.getPassword());
+			pstmt.setInt(2, user.getUserId());
+			successCount = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+
+		return successCount;
+	}
 		
 }
